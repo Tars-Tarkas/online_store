@@ -1,11 +1,12 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { IinitialState } from "@/types/types";
 const url = "https://dummyjson.com/products";
 
-export const fetchData: any = createAsyncThunk(
+export const fetchData = createAsyncThunk(
   "OS/fetchData",
-  async function (_, { rejectWithValue }) {
+  async (limit, { rejectWithValue }) => {
     try {
-      const res = await fetch(url, {
+      const res = await fetch(`https://dummyjson.com/products?limit=0`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -28,18 +29,22 @@ const OSSlice = createSlice({
   initialState: {
     OSJson: [],
     loading: false,
-    error: null,
-  },
+    error: undefined,
+    totalPage: 0,
+    limit: 10,
+  } as IinitialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchData.pending, (state) => {
+    builder.addCase(fetchData.pending, (state, action: any) => {
+      action.payload = state.limit;
       state.loading = true;
-      state.error = null;
+      state.error = "";
     });
     builder.addCase(fetchData.fulfilled, (state, action) => {
       state.OSJson = action.payload;
-      state.error = null;
+      state.error = "";
       state.loading = false;
+      state.totalPage = action.payload.total;
     });
     builder.addCase(fetchData.rejected, (state, action) => {
       state.loading = false;

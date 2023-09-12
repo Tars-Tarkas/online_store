@@ -10,7 +10,7 @@ interface ICardItemProps {
 
 // const clickDetails = (id: number): MouseEventHandler<HTMLDivElement> => {};
 
-export const CardItem = (props: ICardItemProps) => {
+export default function CardItem(props: ICardItemProps) {
   const { id, title, price, thumbnail } = props;
   return (
     <div
@@ -23,10 +23,10 @@ export const CardItem = (props: ICardItemProps) => {
           quality={80}
           fill
           className="object-cover pb-3"
-          layout="fill"
           src={thumbnail}
           alt="Picture of the author"
-          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority
         />
       </div>
       <label className="block text-center pb-3">Price:{price}</label>
@@ -35,4 +35,4 @@ export const CardItem = (props: ICardItemProps) => {
       </button>
     </div>
   );
-};
+}
