@@ -3,20 +3,21 @@ import { useEffect } from "react";
 import CardItem from "../CardItem/CardItem";
 import Pagination from "../Pagination/Pagination";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { fetchData } from "@/redux/OSSlice";
+import { getProducts } from "@/redux/actioin/actionCreator";
 
 export default function Cards() {
-  const data = useAppSelector((state) => state.OS);
+  const data = useAppSelector((state) => state.OSReducer.OSJson);
   const dispatch = useAppDispatch();
-  const { OSJson, loading, error }: any = data;
+  const { products, loading, error }: any = data;
+  console.log(data);
 
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(getProducts(10));
   }, [dispatch]);
 
   return (
     <div className="flex flex-wrap gap-3 content-between m-auto justify-center">
-      {OSJson.products?.map((item: any) => {
+      {products?.map((item: any) => {
         return <CardItem {...item} key={item.id} />;
       })}
     </div>
