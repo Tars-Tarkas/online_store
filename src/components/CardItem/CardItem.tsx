@@ -8,14 +8,14 @@ interface ICardItemProps {
   thumbnail: string;
 }
 
-// const clickDetails = (id: number): MouseEventHandler<HTMLDivElement> => {};
+const clickDetails = (id: number) => {};
 
 export default function CardItem(props: ICardItemProps) {
   const { id, title, price, thumbnail } = props;
   return (
     <div
       className="w-80 bg-white rounded-xl p-5 hover:drop-shadow-lg cursor-pointer"
-      //   onClick={clickDetails(id)}
+      onClick={() => clickDetails(id)}
     >
       <span className="font-bold block text-center pb-3">{title}</span>
       <div className="w-auto h-64 relative">

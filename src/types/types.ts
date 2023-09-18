@@ -1,7 +1,20 @@
 export interface IinitialState {
-  OSJson: [];
+  products: Product[];
   loading: boolean;
   error: string | undefined;
-  totalPage: number;
-  limit: number;
+
+}
+
+export interface Product {
+  id: number;
+  title: string;
+  brand: string;
+  category: string;
+  description: string;
+  discountPercentage: number;
+  images: [];
+  price: number;
+  rating: number;
+  stock: number;
+  thumbnail: string;
 }

@@ -1,18 +1,16 @@
 "use client";
 import { useEffect } from "react";
-import CardItem from "../CardItem/CardItem";
-import Pagination from "../Pagination/Pagination";
+import CardItem from "../../components/CardItem/CardItem";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { getProducts } from "@/redux/actioin/actionCreator";
+import { fetchProduct } from "@/redux/OSSlice";
 
 export default function Cards() {
-  const data = useAppSelector((state) => state.OSReducer.OSJson);
+  const data = useAppSelector((state) => state.OS);
   const dispatch = useAppDispatch();
-  const { products, loading, error }: any = data;
-  console.log(data);
+  const { products, loading, error, total }: any = data;
 
   useEffect(() => {
-    dispatch(getProducts(10));
+    dispatch(fetchProduct(10));
   }, [dispatch]);
 
   return (
